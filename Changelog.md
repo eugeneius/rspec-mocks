@@ -1,5 +1,5 @@
 ### 3.1.0 Development
-[Full Changelog](http://github.com/rspec/rspec-mocks/compare/v3.0.2...master)
+[Full Changelog](http://github.com/rspec/rspec-mocks/compare/v3.0.3...v3.0.4)
 
 Enhancements:
 
@@ -8,14 +8,38 @@ Enhancements:
   Phippen, #671)
 * `have_received` matcher will raise "does not implement" errors correctly when
   used with verifying doubles and partial doubles. (Xavier Shay, #722)
-* Don't inadvertently define `BasicObject` in 1.8.7. (Chris Griego, #739)
+* Allow matchers to be used in place of keyword arguments in `with`
+  expectations. (Xavier Shay, #726)
+* Add `thrice` modifier to message expectation interface as a synonym
+  for `exactly(3).times`. (Dennis Taylor, #753)
+* Add more `thrice` synonyms e.g. `.at_least(:thrice)`, `.at_most(:thrice)`,
+  `receive(...).thrice` and `have_received(...).thrice`. (Jon Rowe, #754)
+* Add `and_wrap_original` modifier for partial doubles to mutate the
+  response from a method. (Jon Rowe, #762)
 
-### 3.0.3 Development
+Bugfixes:
+
+* Remove `any_number_of_times` from `any_instance` recorders that were
+  erroneously causing mention of the method in documentation. (Jon Rowe, #760)
+
+### 3.0.4 / 2014-08-14
+[Full Changelog](http://github.com/rspec/rspec-mocks/compare/v3.0.3...v3.0.4)
 
 Bug Fixes:
 
+* Restore `kind_of(x)` to match using `arg.kind_of?(x)` (like RSpec 2)
+  rather than `x === arg`. (Jon Rowe, #750)
+
+### 3.0.3 / 2014-07-21
+[Full Changelog](http://github.com/rspec/rspec-mocks/compare/v3.0.2...v3.0.3)
+
+Bug Fixes:
+
+* `have_received` matcher will raise "does not implement" errors correctly when
+  used with verifying doubles and partial doubles. (Xavier Shay, #722)
 * Make `double.as_null_object.dup` and `double.as_null_object.clone`
   make the copies be null objects. (Myron Marston, #732)
+* Don't inadvertently define `BasicObject` in 1.8.7. (Chris Griego, #739)
 
 ### 3.0.2 / 2014-06-19
 [Full Changelog](http://github.com/rspec/rspec-mocks/compare/v3.0.1...v3.0.2)

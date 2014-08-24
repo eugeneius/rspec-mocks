@@ -1,4 +1,4 @@
-# This file was generated on 2014-06-06T11:34:33-07:00 from the rspec-dev repo.
+# This file was generated on 2014-08-23T21:27:12-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # idea taken from: http://blog.headius.com/2010/03/jruby-startup-time-tips.html
@@ -77,7 +77,7 @@ function style_and_lint_enforced {
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
-    travis_retry git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH
+    travis_retry eval "git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
   fi;
 }
 
@@ -131,7 +131,7 @@ function run_spec_suite_for {
     echo
     unset BUNDLE_GEMFILE
     bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
-    travis_retry bundle install $bundle_install_flags
+    travis_retry eval "bundle install $bundle_install_flags"
     run_specs_and_record_done
     popd
   fi;
@@ -153,4 +153,16 @@ function check_documentation_coverage {
 
 function check_style_and_lint {
   bin/rubocop lib
+}
+
+function run_all_spec_suites {
+  run_specs_one_by_one
+  run_spec_suite_for "rspec-core"
+  run_spec_suite_for "rspec-expectations"
+  run_spec_suite_for "rspec-mocks"
+  run_spec_suite_for "rspec-rails"
+
+  if rspec_support_compatible; then
+    run_spec_suite_for "rspec-support"
+  fi
 }

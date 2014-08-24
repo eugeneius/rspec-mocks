@@ -37,7 +37,7 @@ module RSpec
           record :with
           record :once
           record :twice
-          record :any_number_of_times
+          record :thrice
           record :exactly
           record :times
           record :never
